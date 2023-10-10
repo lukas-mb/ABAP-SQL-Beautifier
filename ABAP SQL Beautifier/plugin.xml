@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+    <page
+    	  category="com.sap.adt.tools.core.ui.preferencePages.ABAP"
+          class="com.abap.sql.beautifier.preferences.PreferencePageGeneral"
+          id="com.abap.sql.beautifier.preferences.PreferencePageGeneral"
+          name="ABAP SQL Beautifier">
+    </page>
+    <page
+          category="com.abap.sql.beautifier.preferences.PreferencePageGeneral"
+          class="com.abap.sql.beautifier.preferences.PreferencePageOldSyntax"
+          id="com.abap.sql.beautifier.preferences.PreferencePageOldSyntax"
+          name="Old syntax">
+    </page>
+    <page
+          category="com.abap.sql.beautifier.preferences.PreferencePageGeneral"
+          class="com.abap.sql.beautifier.preferences.PreferencePageNewSyntax"
+          id="com.abap.sql.beautifier.preferences.PreferencePageNewSyntax"
+          name="New syntax">
+    </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+    <initializer
+          class="com.abap.sql.beautifier.preferences.PreferenceInitializer">
+    </initializer>
+   </extension>
+	<extension
+         point="com.sap.adt.tools.core.ui.quickAssistProcessors">
+         <quickAssistProcessor
+          id="StatementProcessor"
+          class="com.abap.sql.beautifier.StatementProcessor"
+          name="Abap SQL Beautifier">
+          </quickAssistProcessor>
+   </extension>
+
+</plugin>
