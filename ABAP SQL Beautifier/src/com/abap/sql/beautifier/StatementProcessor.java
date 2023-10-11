@@ -78,6 +78,11 @@ public class StatementProcessor implements IQuickAssistProcessor {
 			outputCode = PrettyPrinterConnector.prettyPrint(outputCode);
 		}
 
+		// delete last empty row
+		if (outputCode.endsWith("\r\n")) {
+			outputCode = outputCode.substring(0, outputCode.length() - "\r\n".length());
+		}
+
 		System.out.println("==================================");
 		System.out.println("Output");
 		System.out.println(outputCode);
@@ -174,9 +179,9 @@ public class StatementProcessor implements IQuickAssistProcessor {
 	public ICompletionProposal[] computeQuickAssistProposals(IQuickAssistInvocationContext invocationContext) {
 		List<ICompletionProposal> proposals = new ArrayList<>();
 
-		int replaceLength = end - startReplacement + 1;
-
 		if (canAssist(invocationContext)) {
+
+			int replaceLength = end - startReplacement + 1;
 
 			String beautifulSql = "";
 			String convertedSql = "";
@@ -200,7 +205,6 @@ public class StatementProcessor implements IQuickAssistProcessor {
 					BeautifierIcon.get(), "Beautify SQL-Statement", null, descBeautify);
 
 			proposals.add(beautifyProp);
-
 
 //			if (this.oldSyntax) {
 //				CompletionProposal conversionProp = new CompletionProposal(convertedSql, startReplacement,

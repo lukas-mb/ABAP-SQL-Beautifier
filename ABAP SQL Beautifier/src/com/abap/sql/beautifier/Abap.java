@@ -24,5 +24,6 @@ public final class Abap {
 	public static final String CONNECTION = "CONNECTION";
 	public static final String FORALLENTRIES = "FOR ALL ENTRIES";
 	public static final String APPENDING = "APPENDING";
+	public static final String OFFSET = "OFFSET";
 	public static final String COMMENT = "COMMENT";
 }

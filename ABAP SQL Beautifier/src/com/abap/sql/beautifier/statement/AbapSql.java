@@ -58,6 +58,12 @@ public class AbapSql {
 		if (index != -1) {
 			order.add(index, Abap.APPENDING);
 		}
+		
+		// UPTO ~ OFFSET
+		index = order.indexOf(Abap.UPTO);
+		if (index != -1) {
+			order.add(index, Abap.OFFSET);
+		}
 
 	}
 
@@ -402,10 +408,10 @@ public class AbapSql {
 				}
 			}
 		}
-
+		
 		// build return String
 		sqlString = sqlString.substring(0, sqlString.length() - "\r\n".length());
-
+		
 		return sqlString;
 	}
 
