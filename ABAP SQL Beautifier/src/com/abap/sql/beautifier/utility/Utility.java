@@ -61,14 +61,14 @@ public class Utility {
 		int count = 0;
 
 		for (int i = 1; i < cleanTokenList.size(); i++) {
-			
+
 			String curToken = cleanTokenList.get(i);
-			
-			//count all " ' "
-			if(curToken.matches("'")) {
+
+			// count all " ' "
+			if (curToken.matches("'")) {
 				count++;
 			}
-			
+
 			if (curToken.contains(placeholder)) {
 
 				curToken = curToken.replaceAll(placeholder, "");
@@ -80,10 +80,10 @@ public class Utility {
 				boolean endsLiteral = (tokenAfter.matches("'") || curToken.endsWith("'"));
 
 				if (startLiteral && endsLiteral) {
-					if(count % 2 != 0) {
+					if (count % 2 != 0) {
 						isLiteral = true;
 					}
-				
+
 				}
 
 				break;
@@ -124,7 +124,7 @@ public class Utility {
 	}
 
 	public static String deleteLines(String statement) {
-		//return statement.replace("\r\n", " ");
+		// return statement.replace("\r\n", " ");
 		return statement.replace(System.lineSeparator(), " ");
 	}
 
@@ -194,25 +194,30 @@ public class Utility {
 
 				String curLine = statement.substring(0, subStrLength);
 
-				// get index of last space in this line
-				int curIndex = curLine.lastIndexOf(" ");
+				String regex = escapeRegex(statement.trim());
 
-				if (curIndex != -1) {
-					// index found
-					curLine = curLine.substring(0, curIndex);
-				} else {
-					// no space found --> find next space
-					for (int i = (subStrLength + 1); i < statement.length(); i++) {
-						curLine = statement.substring(0, i);
-						curIndex = curLine.lastIndexOf(" ");
-						if (curIndex != -1) {
-							break;
+				if (!curLine.matches(regex)) {
+
+					// get index of last space in this line
+					int curIndex = curLine.lastIndexOf(" ");
+
+					if (curIndex != -1) {
+						// index found
+						curLine = curLine.substring(0, curIndex);
+					} else {
+						// no space found --> find next space
+						for (int i = (subStrLength + 1); i < statement.length(); i++) {
+							curLine = statement.substring(0, i);
+							curIndex = curLine.lastIndexOf(" ");
+							if (curIndex != -1) {
+								break;
+							}
 						}
-					}
 
-					// still not found? take whole statement
-					if (curIndex == -1) {
-						curLine = statement;
+						// still not found? take whole statement
+						if (curIndex == -1) {
+							curLine = statement;
+						}
 					}
 				}
 
@@ -221,9 +226,10 @@ public class Utility {
 				} else {
 					curLine = whiteCharsTabLines + curLine;
 				}
+
 				lines.add(curLine);
 
-				String regex = escapeRegex(curLine.trim());
+				regex = escapeRegex(curLine.trim());
 
 				statement = statement.replaceFirst(regex, "").trim();
 
