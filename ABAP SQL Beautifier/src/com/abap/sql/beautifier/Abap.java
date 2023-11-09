@@ -9,7 +9,7 @@ public final class Abap {
 	// --> easier to find use with 'where used list'
 
 	public static final List<String> JOINS = Arrays.asList("INNER JOIN", "JOIN", "CROSS JOIN", "OUTER JOIN",
-			"FULL OUTER JOIN", "LEFT OUTER JOIN", "RIGHT OUTER JOIN");
+			"FULL OUTER JOIN", "LEFT OUTER JOIN", "RIGHT OUTER JOIN", "LEFT JOIN", "RIGHT JOIN");
 
 	public static final String ORDERBY = "ORDER BY";
 	public static final String SELECT = "SELECT";
