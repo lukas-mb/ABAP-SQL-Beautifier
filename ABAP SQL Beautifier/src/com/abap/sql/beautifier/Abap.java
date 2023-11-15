@@ -16,6 +16,7 @@ public final class Abap {
 	public static final String UPTO = "UP TO";
 	public static final String FROM = "FROM";
 	public static final String SELECTFROM = "SELECT FROM";
+	public static final String SELECT_SINGLE_FROM = "SELECT SINGLE FROM";
 	public static final String INTO = "INTO";
 	public static final String WHERE = "WHERE";
 	public static final String GROUPBY = "GROUP BY";
@@ -26,4 +27,5 @@ public final class Abap {
 	public static final String APPENDING = "APPENDING";
 	public static final String OFFSET = "OFFSET";
 	public static final String COMMENT = "COMMENT";
+	public static final String SINGLE = "SINGLE";
 }

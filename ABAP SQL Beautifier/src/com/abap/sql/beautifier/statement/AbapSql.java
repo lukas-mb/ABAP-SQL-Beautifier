@@ -120,6 +120,11 @@ public class AbapSql {
 		for (String keyword : orderSplit) {
 
 			keyword = keyword.trim();
+			
+			//add additional select single
+			if(this.isOldSyntax == false && keyword.equals(Abap.SELECTFROM)) {
+				returnOrder.add(Abap.SELECT_SINGLE_FROM);
+			}
 
 			// ignore empty values
 			if (keyword != "") {
@@ -182,6 +187,12 @@ public class AbapSql {
 		} catch (IndexOutOfBoundsException | NullPointerException ex) {
 			// try other method to check syntax
 			part = getPart(Abap.SELECT);
+			if (part == null) {
+				part = getPart(Abap.SELECTFROM);
+				if (part == null) {
+					part = getPart(Abap.SELECT_SINGLE_FROM);
+				}
+			}
 			firstLine = part.getLines().get(0).trim();
 
 			tokens = Arrays.asList(firstLine.trim().split(" "));
@@ -359,13 +370,15 @@ public class AbapSql {
 		sql = Utility.cleanString(sql);
 		List<String> splits = Arrays.asList(sql.split(" "));
 		if (splits.size() > 2) {
-			String firstToken = splits.get(0);
-			String secondToken = splits.get(1);
 
-			if (firstToken.equalsIgnoreCase(Abap.SELECT) && secondToken.equalsIgnoreCase(Abap.FROM)) {
+			String secToken = splits.get(1).toString().toUpperCase();
+			String thirdToken = splits.get(2).toString().toUpperCase();
+			
+			if (secToken.equals(Abap.FROM) || (secToken.equals(Abap.SINGLE) && thirdToken.equals(Abap.FROM))) {
 				// new syntax
 				return false;
 			}
+
 
 		}
 		// oldSyntax

@@ -44,6 +44,10 @@ public class CommentsAdder extends AbstractSqlSetting {
 		if (part == null) {
 			part = abapSql.getPart(Abap.SELECTFROM);
 			name = Abap.SELECTFROM;
+			if (part == null) {
+				part = abapSql.getPart(Abap.SELECT_SINGLE_FROM);
+				name = Abap.SELECT_SINGLE_FROM;
+			}
 		} else {
 			name = Abap.SELECT;
 		}
@@ -67,9 +71,9 @@ public class CommentsAdder extends AbstractSqlSetting {
 			firstComment = "\r\n" + firstComment;
 			comments.set(0, firstComment);
 		}
-		
+
 		AbapSqlPart commentPart = Factory.getPartObject(Abap.COMMENT, comments);
-		
+
 		abapSql.setPart(Abap.COMMENT, commentPart);
 
 	}

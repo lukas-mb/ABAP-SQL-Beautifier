@@ -1,6 +1,7 @@
 package com.abap.sql.beautifier;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.jface.text.BadLocationException;
@@ -114,7 +115,7 @@ public class StatementProcessor implements IQuickAssistProcessor {
 
 		// offset of last dot and startReplacement could be different
 		startReplacement = statementTokens.get(0).offset;
-
+		
 		try {
 			int line = document.getLineOfOffset(startReplacement);
 			int lineOffset = document.getLineOffset(line);
@@ -131,10 +132,24 @@ public class StatementProcessor implements IQuickAssistProcessor {
 			String firstToken = statementTokens.get(0).toString();
 
 			if (firstToken.equalsIgnoreCase(Abap.SELECT)) {
+				
+				try {
+					sql = invocationContext.getSourceViewer().getDocument().get(startReplacement,
+							end - startReplacement);
 
-				if (statementTokens.size() > 1) {
+				} catch (BadLocationException e) {
+					e.printStackTrace();
+				}
+				
+				String sqlHelper = sql.replaceAll(",", "");
+				sqlHelper = Utility.cleanString(sqlHelper);
+				List<String> customTokens = Arrays.asList(sqlHelper.split(" "));
+
+				if (customTokens.size() > 2) {
 					// check if old or new syntax
-					if (statementTokens.get(1).toString().toUpperCase().equalsIgnoreCase(Abap.FROM)) {
+					String secToken = customTokens.get(1).toString().toUpperCase();
+					String thirdToken = customTokens.get(2).toString().toUpperCase();
+					if (secToken.equals(Abap.FROM) || (secToken.equals(Abap.SINGLE) && thirdToken.equals(Abap.FROM))) {
 						this.oldSyntax = false;
 					}
 				}
@@ -144,13 +159,6 @@ public class StatementProcessor implements IQuickAssistProcessor {
 				// plugin
 
 				// check if it contains multiple 'select' or 'when'
-				try {
-					sql = invocationContext.getSourceViewer().getDocument().get(startReplacement,
-							end - startReplacement);
-
-				} catch (BadLocationException e) {
-					e.printStackTrace();
-				}
 
 				// when?
 				if (sql.toUpperCase().contains(" WHEN ")) {

@@ -62,7 +62,6 @@ public class SpaceAdder extends AbstractSqlSetting {
 
 		abapSql.setPart(Abap.FROM, fromPart);
 
-
 	}
 
 	private void addSpacesWhere() {
@@ -104,7 +103,8 @@ public class SpaceAdder extends AbstractSqlSetting {
 				List<String> curPartLines = curPart.getLines();
 				List<String> newLines = new ArrayList<>();
 
-				if (keyword.equalsIgnoreCase(Abap.SELECT) || keyword.equalsIgnoreCase(Abap.SELECTFROM)) {
+				if (keyword.equalsIgnoreCase(Abap.SELECT) || keyword.equalsIgnoreCase(Abap.SELECTFROM)
+						|| keyword.equalsIgnoreCase(Abap.SELECT_SINGLE_FROM)) {
 					// exclude first line
 					newLines.add(curPartLines.get(0));
 					curPartLines.remove(0);
