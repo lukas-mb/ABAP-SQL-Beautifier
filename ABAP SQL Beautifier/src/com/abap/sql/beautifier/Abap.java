@@ -28,4 +28,5 @@ public final class Abap {
 	public static final String OFFSET = "OFFSET";
 	public static final String COMMENT = "COMMENT";
 	public static final String SINGLE = "SINGLE";
+	public static final String INTO_COR_FI_OF = "INTO CORRESPONDING FIELDS";
 }

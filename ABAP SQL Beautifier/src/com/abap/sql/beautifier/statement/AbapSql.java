@@ -64,6 +64,12 @@ public class AbapSql {
 		if (index != -1) {
 			order.add(index, Abap.OFFSET);
 		}
+		
+		// INTO ~ INTO CORRESPONDING FIELDS OF
+		index = order.indexOf(Abap.INTO);
+		if (index != -1) {
+			order.add(index, Abap.INTO_COR_FI_OF);
+		}
 
 	}
 
@@ -340,6 +346,7 @@ public class AbapSql {
 		}
 
 		List<String> parts = splitSql(sql, getOrder());
+		List<String> remainingParts = new ArrayList<>();
 
 		for (String keyword : getOrder()) {
 			for (String split : parts) {
@@ -353,11 +360,12 @@ public class AbapSql {
 					}
 
 					AbapSqlPart finalPart = Factory.getPartObject(keyword, finalPartList);
-
 					setPart(keyword, finalPart);
+					
+					parts.remove(split);
 
 					break;
-				}
+				} 
 
 			}
 		}

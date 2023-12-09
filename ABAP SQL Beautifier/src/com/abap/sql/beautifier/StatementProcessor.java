@@ -111,70 +111,71 @@ public class StatementProcessor implements IQuickAssistProcessor {
 
 		// all words in selected code
 		List<Token> statementTokens = scannerServices.getStatementTokens(document, start);
-		statementTokens = scannerServices.getStatementTokens(document, start);
-
-		// offset of last dot and startReplacement could be different
-		startReplacement = statementTokens.get(0).offset;
-		
-		try {
-			int line = document.getLineOfOffset(startReplacement);
-			int lineOffset = document.getLineOffset(line);
-
-			diff = startReplacement - lineOffset;
-
-		} catch (BadLocationException e) {
-			e.printStackTrace();
-		}
 
 		// check first word
 		if (statementTokens.size() > 0) {
+			String firstToken = null;
+			
+			//get first non comment token
+			for (int i = 0; i < statementTokens.size(); i++) {
+				Token t = statementTokens.get(i);
+				if (!scannerServices.isComment(document, t.offset)) {
+					firstToken = t.toString();
+					
+					// offset of last dot and startReplacement could be different
+					startReplacement = t.offset;
 
-			String firstToken = statementTokens.get(0).toString();
+					try {
+						int line = document.getLineOfOffset(startReplacement);
+						int lineOffset = document.getLineOffset(line);
 
-			if (firstToken.equalsIgnoreCase(Abap.SELECT)) {
-				
-				try {
-					sql = invocationContext.getSourceViewer().getDocument().get(startReplacement,
-							end - startReplacement);
+						diff = startReplacement - lineOffset;
 
-				} catch (BadLocationException e) {
-					e.printStackTrace();
+					} catch (BadLocationException e) {
+						e.printStackTrace();
+					}
+					break;
 				}
-				
-				String sqlHelper = sql.replaceAll(",", "");
-				sqlHelper = Utility.cleanString(sqlHelper);
-				List<String> customTokens = Arrays.asList(sqlHelper.split(" "));
+			}
+			if (firstToken != null) {
 
-				if (customTokens.size() > 2) {
-					// check if old or new syntax
-					String secToken = customTokens.get(1).toString().toUpperCase();
-					String thirdToken = customTokens.get(2).toString().toUpperCase();
-					if (secToken.equals(Abap.FROM) || (secToken.equals(Abap.SINGLE) && thirdToken.equals(Abap.FROM))) {
-						this.oldSyntax = false;
+				if (firstToken.equalsIgnoreCase(Abap.SELECT)) {
+					sql = code.substring(startReplacement, end);
+
+					String sqlHelper = sql.replaceAll(",", "");
+					sqlHelper = Utility.cleanString(sqlHelper);
+					List<String> customTokens = Arrays.asList(sqlHelper.split(" "));
+
+					if (customTokens.size() > 2) {
+						// check if old or new syntax
+						String secToken = customTokens.get(1).toString().toUpperCase();
+						String thirdToken = customTokens.get(2).toString().toUpperCase();
+						if (secToken.equals(Abap.FROM)
+								|| (secToken.equals(Abap.SINGLE) && thirdToken.equals(Abap.FROM))) {
+							this.oldSyntax = false;
+						}
+					}
+
+					// TODO
+					// check if second SELECT or WHEN in statement --> not working currently in this
+					// plugin
+
+					// check if it contains multiple 'select' or 'when'
+
+					// when?
+					if (sql.toUpperCase().contains(" WHEN ")) {
+						return false;
+					}
+
+					// mult. select?
+					int count = Utility.countKeyword(sql, Abap.SELECT);
+
+					if (count <= 1) {
+						return true;
 					}
 				}
-
-				// TODO
-				// check if second SELECT or WHEN in statement --> not working currently in this
-				// plugin
-
-				// check if it contains multiple 'select' or 'when'
-
-				// when?
-				if (sql.toUpperCase().contains(" WHEN ")) {
-					return false;
-				}
-
-				// mult. select?
-				int count = Utility.countKeyword(sql, Abap.SELECT);
-
-				if (count <= 1) {
-					return true;
-				}
-
 			}
 		}
-
 		return false;
 	}
 

@@ -16,7 +16,6 @@ public class Restructor extends AbstractSqlSetting {
 	@Override
 	public void apply() {
 
-
 		splitFrom();
 		splitWhere();
 
@@ -61,7 +60,7 @@ public class Restructor extends AbstractSqlSetting {
 
 		// check if there is no condition word
 		if (firstIndex != -1) {
-
+			
 			list.add(word);
 			list.add(firstIndex);
 		}
