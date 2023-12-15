@@ -74,11 +74,6 @@ public class StatementProcessor implements IQuickAssistProcessor {
 
 		String outputCode = abapSql.toString();
 
-		// pretty print depending on SAP user settings
-		if (Activator.getDefault().getPreferenceStore().getBoolean(PreferenceConstants.PRETTY_PRINT)) {
-			outputCode = PrettyPrinterConnector.prettyPrint(outputCode);
-		}
-
 		// delete last empty row
 		if (outputCode.endsWith("\r\n")) {
 			outputCode = outputCode.substring(0, outputCode.length() - "\r\n".length());
@@ -115,13 +110,13 @@ public class StatementProcessor implements IQuickAssistProcessor {
 		// check first word
 		if (statementTokens.size() > 0) {
 			String firstToken = null;
-			
-			//get first non comment token
+
+			// get first non comment token
 			for (int i = 0; i < statementTokens.size(); i++) {
 				Token t = statementTokens.get(i);
 				if (!scannerServices.isComment(document, t.offset)) {
 					firstToken = t.toString();
-					
+
 					// offset of last dot and startReplacement could be different
 					startReplacement = t.offset;
 
@@ -210,7 +205,7 @@ public class StatementProcessor implements IQuickAssistProcessor {
 			}
 
 			String descBeautify = "Beautify this SQL statement depending on the settings in your preferences.";
-			CompletionProposal beautifyProp = new CompletionProposal(beautifulSql, startReplacement, replaceLength, 0,
+			BeautifyProposal beautifyProp = new BeautifyProposal(beautifulSql, startReplacement, replaceLength, 0,
 					BeautifierIcon.get(), "Beautify SQL-Statement", null, descBeautify);
 
 			proposals.add(beautifyProp);
