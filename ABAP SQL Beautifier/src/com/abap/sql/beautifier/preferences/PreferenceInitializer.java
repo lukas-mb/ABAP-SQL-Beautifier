@@ -58,7 +58,6 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 
 		store.setDefault(PreferenceConstants.ORDER_NEW_SYNTAX, order);
 
-		store.setDefault(PreferenceConstants.PRETTY_PRINT, false);
 		store.setDefault(PreferenceConstants.ESCAPING, false);
 		store.setDefault(PreferenceConstants.COMMAS, false);
 

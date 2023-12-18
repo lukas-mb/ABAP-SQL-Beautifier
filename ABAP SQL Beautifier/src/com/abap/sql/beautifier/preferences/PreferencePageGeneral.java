@@ -26,9 +26,6 @@ public class PreferencePageGeneral extends AbstractBeautifierPrefPage implements
 		addField(new BooleanFieldEditor(PreferenceConstants.ALLIGN_OPERS, "Allign operators in conditions",
 				getFieldEditorParent()));
 
-		addField(new BooleanFieldEditor(PreferenceConstants.PRETTY_PRINT,
-				"Pretty print the sql statement (plugin backend needed)", getFieldEditorParent()));
-
 		addField(new IntegerFieldEditor(PreferenceConstants.LINE_CHAR_LIMIT, "General char limit for one line",
 				getFieldEditorParent()));
 

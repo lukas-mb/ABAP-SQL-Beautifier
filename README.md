@@ -30,7 +30,7 @@ Planned for Version 1:
 - Convert SQL statement to new syntax
 - Add escaping to host variables
 - Add commas between fields
-- WHEN syntax
+- CASE/WHEN syntax
 - SELECT in WHERE
 
 

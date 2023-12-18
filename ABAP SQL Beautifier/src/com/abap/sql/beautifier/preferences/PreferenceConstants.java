@@ -21,8 +21,6 @@ public class PreferenceConstants {
 	
 	public static final String ORDER_NEW_SYNTAX = "ORDER_NEW_SYNTAX";
 
-	public static final String PRETTY_PRINT = "PRETTY_PRINT";
-
 	public static final String TAB_ALL = "TAB_ALL";
 
 	public static final String TAB_CONDITIONS = "TAB_CONDITIONS";
