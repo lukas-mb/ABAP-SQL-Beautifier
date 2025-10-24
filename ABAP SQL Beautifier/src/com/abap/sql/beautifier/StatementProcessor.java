@@ -28,7 +28,7 @@ import com.abap.sql.beautifier.utility.Utility;
 import com.sap.adt.tools.abapsource.ui.AbapSourceUi;
 import com.sap.adt.tools.abapsource.ui.IAbapSourceUi;
 import com.sap.adt.tools.abapsource.ui.sources.IAbapSourceScannerServices;
-import com.sap.adt.tools.abapsource.ui.sources.IAbapSourceScannerServices.Token;
+import com.sap.adt.tools.abapsource.sources.scanner.IBaseAbapSourceScannerServices.Token;
 import com.sap.adt.tools.abapsource.ui.sources.editors.AbapSourcePage;
 
 public class StatementProcessor implements IQuickAssistProcessor {

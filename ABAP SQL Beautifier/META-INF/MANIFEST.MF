@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ABAP SQL Beautifier
 Bundle-SymbolicName: com.abap.sql.beautifier;singleton:=true
-Bundle-Version: 0.1.4.qualifier
+Bundle-Version: 0.1.5.qualifier
 Bundle-Activator: com.abap.sql.beautifier.Activator
 Bundle-Vendor: Lukas Bachmann
 Require-Bundle: org.eclipse.core.runtime;bundle-version="3.24.100",
@@ -11,7 +11,8 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="3.24.100",
  org.eclipse.ui.ide;bundle-version="3.18.500",
  com.sap.adt.tools.core.ui;bundle-version="3.38.2",
  com.sap.adt.util.ui;bundle-version="3.38.2",
- org.eclipse.ui.editors;bundle-version="3.17.0"
+ org.eclipse.ui.editors;bundle-version="3.17.0",
+ com.sap.adt.tools.abapsource;bundle-version="3.54.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: abap.sql.beautifier
 Bundle-ActivationPolicy: lazy
