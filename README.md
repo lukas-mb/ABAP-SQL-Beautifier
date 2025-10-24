@@ -1,5 +1,6 @@
 # ABAP SQL Beautifier
  
+UPDATE 2025-10-24: Plugin obsolete since ABAP Cleaner now formats SQL statements. Delisted on Eclipse Marketplace.
 
 Direct installation: 
 https://lukas-mb.github.io/ABAP-SQL-Beautifier-Update/
